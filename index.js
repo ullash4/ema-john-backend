@@ -1,7 +1,7 @@
 // express fundamentals
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, Collection } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 require("dotenv").config();
@@ -21,6 +21,26 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function run() {
     try{
+        await client.connect();
+        const productCollection = client.db('emaJohn').collection('product')
+
+        // get product or load products
+        app.get('/product', async(req, res)=>{
+            const query = {};
+            const cursor = productCollection.find(query)
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
+        // count product items
+        app.get('/productcount', async(req, res)=>{
+            const query = {};
+            const cursor = productCollection.find(query)
+            const count = await cursor.count()
+            res.send({count})
+        })
+
+
 
     }finally{
 
