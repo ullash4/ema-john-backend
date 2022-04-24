@@ -1,12 +1,34 @@
 // express fundamentals
 const express = require('express');
 const cors = require('cors');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
+require("dotenv").config();
+
+// pass 2GS9KLPwbkoCIYht
+// user ema_johnDB
 
 // middleware
 app.use(cors()) //aita na dele duita port cros connection hoina
 app.use(express.json()) // to make body's data parse in json
+
+
+
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pfbxg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+async function run() {
+    try{
+
+    }finally{
+
+    }
+}
+run().catch(console.dir)
+
+
 
 // backend code
 app.get('/', (req, res)=>{
